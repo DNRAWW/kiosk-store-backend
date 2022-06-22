@@ -1,0 +1,1 @@
+В библиотеке django_hashedfilenamestorage ошибка(?), нужно заменить force_text на force_str
