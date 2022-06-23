@@ -1,3 +1,4 @@
+from urllib import request
 from django.contrib import admin
 from django import forms
 
@@ -12,19 +13,25 @@ class ProductImageInline(admin.TabularInline):
 
 
 class ProductForm(forms.ModelForm):
-    price = forms.DecimalField(min_value=1)
+    name = forms.CharField(max_length=50, label="Имя")
+    description = forms.Textarea()
+    price = forms.DecimalField(min_value=1, label="Цена", decimal_places=2)
+    category = forms.Select()
 
-    class Meta:
-        model = Product
-        exclude = ['price']
+    def __init__(self, *args, **kwargs):
+        if kwargs.get('instance') is not None:
+            kwargs['instance'].price = float(kwargs['instance'].price / 100)
+        super(ProductForm, self).__init__(*args, **kwargs)
 
 
 class ProductAdmin(admin.ModelAdmin):
+    form = ProductForm
     inlines = [ProductImageInline, ]
 
-    def save_model(self, request, obj, form, change):
-        obj.price = obj.price * 100
-        super().save_model(request, obj, form, change)
+    def save_model(self, request, obj, form, change) -> None:
+        price = form.cleaned_data.get('price')
+        obj.price = int(price * 100)
+        return super().save_model(request, obj, form, change)
 
 
 admin.site.register(Category)
