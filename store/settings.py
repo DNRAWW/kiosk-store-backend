@@ -126,9 +126,6 @@ MEDIA_ROOT = 'images/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# hash filename for images
-DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
-
 # Pagination
 
 REST_FRAMEWORK = {
