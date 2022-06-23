@@ -24,7 +24,7 @@ class CategorySerializer(serializers.Serializer):
 class ProductSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField()
-    price = serializers.IntegerField()
+    price = serializers.FloatField()
     description = serializers.CharField()
     category = CategorySerializer(many=False, read_only=True)
     images = ImageSerializer(many=True, read_only=True)

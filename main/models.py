@@ -17,7 +17,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name="Имя")
-    price = models.BigIntegerField(
+    price = models.FloatField(
         validators=[MinValueValidator(1)], verbose_name="Цена")
     description = models.TextField(verbose_name="Описание")
     category = models.ForeignKey(
